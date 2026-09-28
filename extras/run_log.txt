@@ -1,0 +1,139 @@
+Дубликаты событий: удалено 4863 из 328905
+Загружено: train=11,091, test=4,909, событий=324,042
+[время] построение признаков: 0.7 мин
+Матрица признаков: train=(11091, 347), test=(4909, 347)
+Фолд S1 train<=04-10 -> val 04-11..13: train=4217 (поз=345), val=2556 (поз=199)
+Фолд S2 train<=04-13 -> val 04-14..16: train=6773 (поз=544), val=2367 (поз=195)
+
+[SELECT] Схемы весов классов (средний P@R70 по сидам и фолдам):
+  extra_trees     -> balanced   {'balanced': '0.5916', 'None': '0.5215'}
+  random_forest   -> balanced_subsample   {'balanced_subsample': '0.6382', 'balanced': '0.6114', 'None': '0.5218'}
+  hist_gradient   -> None   {'balanced': '0.6834', 'None': '0.6843'}
+  catboost        -> SqrtBalanced   {'SqrtBalanced': '0.7032', 'Balanced': '0.6826', 'None': '0.6718'}
+  lightgbm        -> full   {'None': '0.6877', 'sqrt': '0.6890', 'full': '0.7105'}
+
+[SELECT] Набор признаков: полный против топ-60 (blend_prob_5, среднее по фолдам):
+  full  : фолды=['0.7179', '0.7026'], среднее=0.7103
+  top60 : фолды=['0.6409', '0.7249'], среднее=0.6829
+  выбран набор признаков: full
+
+[SELECT] Сравнение кандидатов (мешки по 5 сидов, P@R70 по фолдам):
+  OOF-фолд: train<=2026-04-07 (1569) -> 2026-04-08..2026-04-09 (1736)
+  OOF-фолд: train<=2026-04-09 (3305) -> 2026-04-10..2026-04-11 (1808)
+  OOF-фолд: train<=2026-04-11 (5113) -> 2026-04-12..2026-04-13 (1660)
+  OOF-фолд: train<=2026-04-13 (6773) -> 2026-04-14..2026-04-16 (2367)
+  Фолд S1 train<=04-10 -> val 04-11..13 (мета обучена на 2648 OOF-строках < 2026-04-11):
+    extra_trees            P@R70=0.5128
+    random_forest          P@R70=0.6250
+    hist_gradient          P@R70=0.6573
+    catboost               P@R70=0.7216
+    lightgbm               P@R70=0.6863
+    blend_prob_et_rf       P@R70=0.6222
+    blend_prob_4           P@R70=0.6965
+    blend_prob_5           P@R70=0.7050
+    blend_rank_et_rf       P@R70=0.6034
+    blend_rank_4           P@R70=0.6481
+    blend_five_rank_manual P@R70=0.7085
+    stack_logreg           P@R70=0.7254
+    stack_nnls             P@R70=0.7179
+  Фолд S2 train<=04-13 -> val 04-14..16 (мета обучена на 5204 OOF-строках < 2026-04-14):
+    extra_trees            P@R70=0.6618
+    random_forest          P@R70=0.6372
+    hist_gradient          P@R70=0.7113
+    catboost               P@R70=0.7249
+    lightgbm               P@R70=0.7026
+    blend_prob_et_rf       P@R70=0.6765
+    blend_prob_4           P@R70=0.7188
+    blend_prob_5           P@R70=0.7249
+    blend_rank_et_rf       P@R70=0.6900
+    blend_rank_4           P@R70=0.7249
+    blend_five_rank_manual P@R70=0.7173
+    stack_logreg           P@R70=0.7150
+    stack_nnls             P@R70=0.7188
+
+[SELECT] Среднее по фолдам:
+    catboost               0.7233
+    stack_logreg           0.7202
+    stack_nnls             0.7183
+    blend_prob_5           0.7149
+    blend_five_rank_manual 0.7129
+    blend_prob_4           0.7076
+    lightgbm               0.6944
+    blend_rank_4           0.6865
+    hist_gradient          0.6843
+    blend_prob_et_rf       0.6493
+    blend_rank_et_rf       0.6467
+    random_forest          0.6311
+    extra_trees            0.5873
+[SELECT] Выбирается: catboost
+[время] SELECT-стадии: 45.8 мин
+
+[EXAM] train<=2026-04-16 (9140, поз=739) -> 2026-04-17..2026-04-19 (1951, поз=160), признаков=347
+[EXAM] мета обучена на 7571 OOF-строках
+    baseline_rf            P@R70=0.0948
+    extra_trees            P@R70=0.6313 PR-AUC=0.7143 ROC-AUC=0.9099 R@1%FPR=0.5625
+    random_forest          P@R70=0.6788 PR-AUC=0.7274 ROC-AUC=0.9270 R@1%FPR=0.4750
+    hist_gradient          P@R70=0.7887 PR-AUC=0.7786 ROC-AUC=0.9297 R@1%FPR=0.5938
+    catboost               P@R70=0.7533 PR-AUC=0.7833 ROC-AUC=0.9309 R@1%FPR=0.6312
+    lightgbm               P@R70=0.7338 PR-AUC=0.7699 ROC-AUC=0.9309 R@1%FPR=0.6250
+    blend_prob_et_rf       P@R70=0.7467 PR-AUC=0.7423 ROC-AUC=0.9235 R@1%FPR=0.5250
+    blend_prob_4           P@R70=0.8000 PR-AUC=0.7775 ROC-AUC=0.9304 R@1%FPR=0.6500
+    blend_prob_5           P@R70=0.8071 PR-AUC=0.7800 ROC-AUC=0.9325 R@1%FPR=0.6500
+    blend_rank_et_rf       P@R70=0.7368 PR-AUC=0.7404 ROC-AUC=0.9230 R@1%FPR=0.5437
+    blend_rank_4           P@R70=0.7740 PR-AUC=0.7734 ROC-AUC=0.9295 R@1%FPR=0.6375
+    blend_five_rank_manual P@R70=0.8116 PR-AUC=0.7782 ROC-AUC=0.9316 R@1%FPR=0.6312
+    stack_logreg           P@R70=0.7635 PR-AUC=0.7668 ROC-AUC=0.9308 R@1%FPR=0.6188
+    stack_nnls             P@R70=0.7568 PR-AUC=0.7863 ROC-AUC=0.9314 R@1%FPR=0.6625
+
+[EXAM] catboost: P@R70=0.7533 (разброс по сидам +/-0.0126, бутстрап 95% CI [0.6454, 0.8955])
+
+[HORIZON] train<=2026-04-12 (5930, поз=491) -> 2026-04-13..2026-04-19 (5161, поз=408), признаков=347
+[HORIZON] мета обучена на 4361 OOF-строках
+    baseline_rf            P@R70=0.0918
+    extra_trees            P@R70=0.6072 PR-AUC=0.7261 ROC-AUC=0.9173 R@1%FPR=0.5637
+    random_forest          P@R70=0.6530 PR-AUC=0.7263 ROC-AUC=0.9271 R@1%FPR=0.5221
+    hist_gradient          P@R70=0.7566 PR-AUC=0.7707 ROC-AUC=0.9297 R@1%FPR=0.5956
+    catboost               P@R70=0.7566 PR-AUC=0.7838 ROC-AUC=0.9354 R@1%FPR=0.6201
+    lightgbm               P@R70=0.7186 PR-AUC=0.7745 ROC-AUC=0.9322 R@1%FPR=0.5980
+    blend_prob_et_rf       P@R70=0.6842 PR-AUC=0.7461 ROC-AUC=0.9270 R@1%FPR=0.5907
+    blend_prob_4           P@R70=0.7366 PR-AUC=0.7748 ROC-AUC=0.9327 R@1%FPR=0.6250
+    blend_prob_5           P@R70=0.7461 PR-AUC=0.7770 ROC-AUC=0.9337 R@1%FPR=0.6348
+    blend_rank_et_rf       P@R70=0.6568 PR-AUC=0.7478 ROC-AUC=0.9270 R@1%FPR=0.5833
+    blend_rank_4           P@R70=0.7347 PR-AUC=0.7758 ROC-AUC=0.9333 R@1%FPR=0.6348
+    blend_five_rank_manual P@R70=0.7467 PR-AUC=0.7781 ROC-AUC=0.9339 R@1%FPR=0.6250
+    stack_logreg           P@R70=0.7378 PR-AUC=0.7729 ROC-AUC=0.9332 R@1%FPR=0.6176
+    stack_nnls             P@R70=0.7398 PR-AUC=0.7841 ROC-AUC=0.9351 R@1%FPR=0.6201
+
+[HORIZON] catboost: P@R70=0.7566 (бутстрап 95% CI [0.6768, 0.8363]) — фолд формы реального теста
+
+[EXAM] Анализ ошибок кандидата catboost:
+  Рабочая точка: порог=0.4124, precision=0.7533, recall=0.7063
+  Матрица ошибок: TP=113, FN=47, FP=37, TN=1754
+  Медианы признаков по группам:
+                                TP     FN     FP     TN
+n_events                        21     11     22     12
+active_span_sec               8908   8891   8057   8784
+events_per_active_span_hour  9.585  5.941   10.3  6.061
+gap_sec_mean                 394.8  679.2    368  634.7
+gap_sec_median                20.5     38     26     58
+gap_under_2s_fraction            0      0      0      0
+hour_entropy                0.2477 0.2181 0.2164 0.2181
+session_count_30m                3      2      2      2
+zero_gap_fraction                0      0      0      0
+ua_headless_fraction             0      0      0      0
+ua_missing_fraction              0      0      0      0
+pointer_sample_fraction          0      0      0      0
+item_id_nunique                 12      6     11      6
+search_query_nunique             5      2      5      3
+[время] вся валидация: 63.5 мин
+
+Выбранная конфигурация: catboost full {'extra_trees': 'balanced', 'random_forest': 'balanced_subsample', 'hist_gradient': None, 'catboost': 'SqrtBalanced', 'lightgbm': 'full'}
+
+[FINAL] кандидат=catboost, признаки=full (347 признаков), сидов=7
+  обучение extra_trees
+  обучение random_forest
+  обучение hist_gradient
+  обучение catboost
+  обучение lightgbm
+Выбран catboost; записано 4,909 предсказаний в submission.csv
+[время] всего: 84.5 мин
